@@ -1,0 +1,18 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "Artur Aquino",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.11.0"
+  },
+  "devDependencies": {
+    "tsx": "^3.12.2"
+  }
+}
