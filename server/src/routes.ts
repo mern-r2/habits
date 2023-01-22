@@ -4,20 +4,43 @@ import { z } from "zod";
 import { prisma } from "./lib/prisma";
 
 export async function appRoutes(app : FastifyInstance) {
-  app.get('/', (req, res) => {
-    return 'Hello World!'
-  });
+  app.get('/day', async (req, _res) => {
+    const dayParams = z.object({
+      date: z.coerce.date(),
+    });
 
-  app.get('/habits', async (req, res) => {
-    const habits = await prisma.habit.findMany({
+    const { date } = dayParams.parse(req.query);
+
+    const parsedDate = dayjs(date).startOf('day')
+    const weekDay = parsedDate.get('day');
+
+    const possibleHabits = await prisma.habit.findMany({
       where: {
-        title: {
-          startsWith: 'Beber',
+        created_at: {
+          lte: date,
+        },
+        weekDays: {
+          some: {
+            week_day: weekDay,
+          }
         }
       }
     });
+    
+    const day = await prisma.day.findUnique({
+      where: {
+        date: parsedDate.toDate(),
+      },
+      include: {
+        dayHabits: true,
+      }
+    });
 
-    return habits;
+    const completedHabits = day?.dayHabits.map(dayHabit => {
+      return dayHabit.habit_id
+    }) ?? []
+
+    return { possibleHabits, completedHabits }
   });
 
   app.post('/habits', async (req, _res) => {
