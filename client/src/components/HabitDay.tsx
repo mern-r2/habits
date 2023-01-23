@@ -4,7 +4,7 @@ import { useState } from "react";
 import dayjs from 'dayjs';
 
 import { ProgressBar } from './ProgressBar';
-// import { HabitsList } from "./HabitsList";
+import { HabitsList } from "./HabitsList";
 
 interface HabitDayProps {
   date: Date;
@@ -44,7 +44,7 @@ export function HabitDay({ defaultCompleted = 0, amount = 0 , date}: HabitDayPro
 
           <ProgressBar progress={completedPercentage} />
 
-          {/* <HabitsList date={date} onCompletedChanged={handleCompletedChaged} /> */}
+          <HabitsList date={date} onCompletedChanged={handleCompletedChaged} />
 
           <Popover.Arrow height={8} width={16} className='fill-zinc-900' />
         </Popover.Content>
