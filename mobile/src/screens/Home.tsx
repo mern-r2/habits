@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import { Text, View, ScrollView, Alert } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
@@ -6,7 +7,6 @@ import { generateRangeDatesFromYearStart } from '../utils/generate-range-between
 import { Header } from '../components/Header';
 import { DAY_SIZE, HabitDay } from '../components/HabitDay';
 import dayjs from 'dayjs';
-import { useCallback, useState } from 'react';
 import { api } from '../lib/axios';
 import { Loading } from '../components/Loading';
 
@@ -30,7 +30,7 @@ export function Home() {
 
   async function fetchData() {
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await api.get('/summary');
       setSummary(response.data)
     } catch (error) {
