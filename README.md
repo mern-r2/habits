@@ -11,6 +11,7 @@
   <img alt="Habits" src="https://global-uploads.webflow.com/61d83a2ebb0ae01ab96e841a/63b70dc36ba741628de50f63_aplicacao-web-nlw-setup.svg" width="100%">
 </p>
 
+
 ## 💻 Project
 
 Habits is an app to help tracking the habits of a person.
@@ -32,20 +33,14 @@ Habits is an app to help tracking the habits of a person.
 - [Prisma](https://www.prisma.io/)
 - [Zod](https://zod.dev/)
 
+
 ## 🚀 Running
 
-All 3 projects are run in the same way: installing the dependencies then running.
+Do not forget to check the `General Configurations` at the end of this section.
 
-```sh
-# Install dependencies
-$ cd <project> 
-$ npm install
+### Server
 
-# Run project
-$ npm start
-```
-
-However, the server needs database configuration before running:
+Server needs database configuration before running.
 
 1. Go to `server` folder and inside a file name `.env` put the database url.
 
@@ -59,12 +54,53 @@ DATABASE_URL="file:./dev.db"
 npx prisma migrate dev
 ```
 
-It also may be needed to change the IP addresses used on files:
+```sh
+# Install dependencies and run (still on server folder)
+$ npm install
+$ npm run dev
+```
+
+### Web Client
+
+This one is the most straightforward.
+
+```sh
+# Install dependencies
+$ cd client 
+$ npm install
+
+# Run project
+$ npm run dev
+```
+
+### Mobile
+
+Mobile is run by Expo.
+
+```sh
+# Install dependencies
+$ cd mobile
+$ npm install
+
+# Run project
+$ npx expo start
+```
+
+Sometimes the flag `--clear` must be appended to the end of running the mobile project.
+
+### General Configurations
+
+It also may be needed to change the IP addresses used on files for the exat IP instead of 'localhost':
 - [axios.ts](./client/src/lib/axios.ts) (web)
 - [axios.ts](./mobile/src/lib/axios.ts) (mobile)
 - [server.ts](./server/src/server.ts) (server)
 
 For the server a host property would be added.
+The IP can be easily obtained after running on mobile (expo prints it on the console).
+
+Moreover, public and private keu must be set in `notification-routes.ts` on server project.
+Simply log `WebPush.generateVAPIDKeys()` and copy the value of the keys.
+
 
 ## 🔖 Layout
 
@@ -75,6 +111,7 @@ The project layout is available on [this link](https://www.figma.com/community/f
 </p>
 
 [Figma](https://figma.com) account is needed.
+
 
 ## :memo: License
 
